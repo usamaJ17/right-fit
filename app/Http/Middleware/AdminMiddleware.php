@@ -24,6 +24,9 @@ class AdminMiddleware
         if (!auth()->user()->isAdmin()) {
             abort(403, 'Unauthorized action.');
         }
+        if (!auth()->user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to access this page.');
+        }
 
         return $next($request);
     }
