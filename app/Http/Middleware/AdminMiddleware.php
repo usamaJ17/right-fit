@@ -22,9 +22,6 @@ class AdminMiddleware
 
         // Check if the authenticated user has the admin role
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'Unauthorized action.');
-        }
-        if (!auth()->user()->isAdmin()) {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
 

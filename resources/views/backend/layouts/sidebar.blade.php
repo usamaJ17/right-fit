@@ -40,23 +40,23 @@
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarProducts">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="product-list" class="nav-link" data-key="t-list-view">{{ __('t-list-view') }}</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
-                                <a href="product-grid" class="nav-link" data-key="t-grid-view">{{ __('t-grid-view') }}</a>
+                                <a href="{{ route('product.index') }}" class="nav-link" data-key="t-grid-view">{{ __('t-all-products') }}</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="product-overview" class="nav-link" data-key="t-overview">{{ __('t-overview') }}</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
-                                <a href="product-create" class="nav-link" data-key="t-create-product">{{ __('t-create-product') }}</a>
+                                <a href="{{ route('product.create') }}" class="nav-link" data-key="t-create-product">{{ __('t-create-product') }}</a>
                             </li>
                             <li class="nav-item">       
-                                <a href="categories" class="nav-link" data-key="t-categories">{{ __('t-categories') }}</a>
+                                <a href="{{ route('catagory.index') }}" class="nav-link" data-key="t-categories">{{ __('t-categories') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="sub-categories" class="nav-link" data-key="t-sub-categories">{{ __('t-sub-categories') }}</a>
+                                <a href="{{ route('sub-catagory.index') }}" class="nav-link" data-key="t-sub-categories">{{ __('t-sub-categories') }}</a>
                             </li>
                         </ul>
                     </div>

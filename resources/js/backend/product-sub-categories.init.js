@@ -82,49 +82,65 @@ var subCategoriesData = [
 
 var editList = false;
 
-// product-sub-categories
 if (document.getElementById("product-sub-categories")) {
-    var categoryList = new gridjs.Grid({
-        columns: [
-            {
-                name: 'Id', 
-                width: '80px',
-                data: (function (row) {
-                    return gridjs.html('<div class="fw-medium">#TBSC' + row.id + '</div>');
-                })
-            },
-            {
-                name: 'Subcategory',
-                width: '120px'
-            },
-            {
-                name: 'Category',
-                width: '160px'
-            },
-            {
-                name: 'Createby',
-                width: '60px'
-            },{
-                name: 'Action',
-                width: '80px',
-                data: (function (row) {
-                    return gridjs.html('<ul class="hstack gap-2 list-unstyled mb-0">\
-                    <li>\
-                        <a href="#" class="badge bg-success-subtle text-success " onClick="editCategoryList('+ row.id + ')">Edit</a>\
-                    </li>\
-                    <li>\
-                        <a href="#removeItemModal" data-bs-toggle="modal" class="badge bg-danger-subtle text-danger " onClick="removeItem('+ row.id + ')">Delete</a>\
-                    </li>\
-                </ul>');
-                })
-            },
-        ],
-        sort: true,
-        pagination: {
-            limit: 10
-        },
-        data: subCategoriesData,
-    }).render(document.getElementById("product-sub-categories"));
+    // Fetch base URL from meta tag
+    var baseUrl = document.querySelector('meta[name="base-url"]').getAttribute('content');
+
+    // Append endpoint to base URL
+    var endpoint = baseUrl + '/admin/sub-catagory?type=raw';
+
+    fetch(endpoint)
+        .then(response => response.json())
+        .then(data => {
+            var categoryList = new gridjs.Grid({
+                columns: [
+                    {
+                        name: 'Id', 
+                        width: '80px',
+                        data: (function (row) {
+                            return gridjs.html('<div class="fw-medium">#SC' + row.id + '</div>');
+                        })
+                    },
+                    {
+                        name: 'Subcategory',
+                        width: '120px',
+                        data: (function (row) {
+                            return row.title;
+                        })
+                    },
+                    {
+                        name: 'Category',
+                        width: '160px'
+                    },
+                    {
+                        name: 'Createby',
+                        width: '60px'
+                    },
+                    {
+                        name: 'Action',
+                        width: '80px',
+                        data: (function (row) {
+                            return gridjs.html('<ul class="hstack gap-2 list-unstyled mb-0">\
+                            <li>\
+                                <a href="#" class="badge bg-success-subtle text-success " onClick="editCategoryList('+ row.id + ')">Edit</a>\
+                            </li>\
+                            <li>\
+                                <a href="#removeItemModal" data-bs-toggle="modal" class="badge bg-danger-subtle text-danger " onClick="removeItem('+ row.id + ')">Delete</a>\
+                            </li>\
+                            </ul>');
+                        })
+                    },
+                ],
+                sort: true,
+                pagination: {
+                    limit: 10
+                },
+                data: data, // Use the fetched data here
+            }).render(document.getElementById("product-sub-categories"));
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
 };
 
 

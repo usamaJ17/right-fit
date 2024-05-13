@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TonerController;
+use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +24,9 @@ Route::get('/login', function () {
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 
 Auth::routes();
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
     Route::get('logout', [TonerController::class, 'logout']);
 
     // Route::get('{any}', [TonerController::class, 'index']);
@@ -31,7 +34,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (){
     Route::get('/index', [App\Http\Controllers\HomeController::class, 'admin_index'])->name('index');
+    Route::get('/product-create', [App\Http\Controllers\HomeController::class, 'product_create'])->name('product_create');
+    Route::resource('product',ProductController::class);
+    Route::resource('catagory',CategoryController::class);
+    Route::post('catagory/delete/{category_id}',[CategoryController::class,'destroy']);
+    Route::resource('sub-catagory',SubCategoryController::class);
 });
 

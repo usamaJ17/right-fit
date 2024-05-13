@@ -25,8 +25,7 @@ class HomeController extends Controller
      */
     public function admin_index()
     {
-        return redirect()->back()->with('error', 'You do not have permission to access this page.');
-        return view('admin.index');
+        return view('backend.index');
     }
     public function index()
     {
